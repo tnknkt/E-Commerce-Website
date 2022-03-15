@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 
 # Create your models here.
@@ -7,6 +8,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name  # แปลง object เป็น String
+
+    class Meta :
+        ordering=('name',)
+        verbose_name='หมวดหมู่สินค้า' # ตั้งชื่อหัวข้อข้างในเมนู
+        verbose_name_plural='ข้อมูลประเภทสินค้า' # ตั้งชื่อเมนูหลังบ้าน
+
 
 class Product(models.Model):
     name=models.CharField(max_length=255,unique=True) #uniqe=ห้ามซ้ำกัน
@@ -22,3 +29,8 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name  # แปลง object เป็น String
+
+    class Meta :
+        ordering=('name',)
+        verbose_name='สินค้า' # ตั้งชื่อหัวข้อข้างในเมนู
+        verbose_name_plural='ข้อมูลสินค้า' # ตั้งชื่อเมนูหลังบ้าน
