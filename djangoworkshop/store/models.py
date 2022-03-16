@@ -1,5 +1,6 @@
 from tabnanny import verbose
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Category(models.Model):
@@ -14,6 +15,8 @@ class Category(models.Model):
         verbose_name='หมวดหมู่สินค้า' # ตั้งชื่อหัวข้อข้างในเมนู
         verbose_name_plural='ข้อมูลประเภทสินค้า' # ตั้งชื่อเมนูหลังบ้าน
 
+    def get_url(self):
+        return reverse('product_by_category',args=[self.slug])
 
 class Product(models.Model):
     name=models.CharField(max_length=255,unique=True) #uniqe=ห้ามซ้ำกัน

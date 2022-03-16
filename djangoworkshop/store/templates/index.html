@@ -1,7 +1,33 @@
 {% extends 'layouts.html' %}
+{% load static %}
 
 {% block content %}
 
-<h2>Hello Page</h2>
+<div class="container">
+    <div class="row my-3">
+    {% for product in products %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top" src="{{product.image.url}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#">{{product.name}}</a>
+              <h6 class="text-danger">{{product.category}} </h6>
+            </h4>
+            <h5>ราคา {{product.price}} บาท</h5>
+            <p class="card-text">{{product.description}}</p>
+          </div>
+          <div class="card-footer">
+            {% if product.stock <= 0 %}
+                <a href="#" class="btn btn-secondary disabled">สินค้าหมด</a>
+            {% else %}
+                <a href="#" class="btn btn-primary">เพิ่มลงตะกร้า</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>    
+</div>
  
 {% endblock %}
