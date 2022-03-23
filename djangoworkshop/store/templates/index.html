@@ -1,6 +1,6 @@
 {% extends 'layouts.html' %}
 {% load static %}
-
+{% load humanize %}
 {% block content %}
 
 <div class="container">
@@ -11,10 +11,10 @@
           <a href="#"><img class="card-img-top" src="{{product.image.url}}" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">{{product.name}}</a>
+              <a href="{{product.get_url}}">{{product.name}}</a>
               <h6 class="text-danger">{{product.category}} </h6>
             </h4>
-            <h5>ราคา {{product.price}} บาท</h5>
+            <h5>ราคา {{product.price|intcomma}} บาท</h5>
             <p class="card-text">{{product.description}}</p>
           </div>
           <div class="card-footer">

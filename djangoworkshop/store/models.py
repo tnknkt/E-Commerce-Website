@@ -1,3 +1,4 @@
+from itertools import product
 from tabnanny import verbose
 from django.db import models
 from django.urls import reverse
@@ -37,3 +38,32 @@ class Product(models.Model):
         ordering=('name',)
         verbose_name='สินค้า' # ตั้งชื่อหัวข้อข้างในเมนู
         verbose_name_plural='ข้อมูลสินค้า' # ตั้งชื่อเมนูหลังบ้าน
+
+    def get_url(self):
+        return reverse('productDetail',args=[self.category.slug,self.slug])
+
+class Cart(models.Model):
+    cart_id=models.CharField(max_length=255,blank=True) 
+    date_added=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.cart_id
+
+    class Meta:
+        db_table='cart'
+        ordering=('date_added',)
+
+class CartItem(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    quantity=models.IntegerField()
+    active=models.BooleanField(default=True)
+
+    class Meta:
+        db_table='cartItem'
+
+    def sub_total(self):
+        return self.product.price * self.quantity
+
+    def __str__(self):
+        return self.cart
